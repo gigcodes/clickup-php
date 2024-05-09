@@ -8,52 +8,40 @@ use ClickUp\Deferrers\Sleep;
 use ClickUp\Store\Memory;
 
 /**
- * Class StoreOptions.
+ * Class StoreOptions
  */
 class StoreOptions
 {
     /**
-     * The time store.
-     *
-     * @var StateStorage
+     * The time store
      */
-    protected $timeStore;
+    protected StateStorage $timeStore;
 
     /**
-     * The limits store.
-     *
-     * @var StateStorage
+     * The limits store
      */
-    protected $limitStore;
+    protected StateStorage $limitStore;
 
     /**
-     * The time deferrer.
-     *
-     * @var TimeDeferrer
+     * The time deferrer
      */
-    protected $timeDeferrer;
+    protected TimeDeferrer $timeDeferrer;
 
     /**
-     * StoreOptions constructor.
-     *
-     * @param StateStorage|null $tStore
-     * @param StateStorage|null $lStore
-     * @param TimeDeferrer|null $tDeferrer
+     * StoreOptions constructor
      */
     public function __construct(
         ?StateStorage $tStore = null,
         ?StateStorage $lStore = null,
         ?TimeDeferrer $tDeferrer = null
     ) {
-        $this->timeStore = $tStore === null ? new Memory() : clone $tStore;
-        $this->limitStore = $lStore === null ? new Memory() : clone $lStore;
-        $this->timeDeferrer = $tDeferrer === null ? new Sleep() : $tDeferrer;
+        $this->timeStore = $tStore ? clone $tStore : new Memory();
+        $this->limitStore = $lStore ? clone $lStore : new Memory();
+        $this->timeDeferrer = $tDeferrer ?? new Sleep();
     }
 
     /**
-     * Get time deferrer.
-     *
-     * @return TimeDeferrer
+     * Get time deferrer
      */
     public function getTimeDeferrer(): TimeDeferrer
     {
@@ -61,9 +49,7 @@ class StoreOptions
     }
 
     /**
-     * Get time store.
-     *
-     * @return StateStorage
+     * Get time store
      */
     public function getTimeStore(): StateStorage
     {
@@ -71,9 +57,7 @@ class StoreOptions
     }
 
     /**
-     * Get limit store.
-     *
-     * @return StateStorage
+     * Get limit store
      */
     public function getLimitStore(): StateStorage
     {
