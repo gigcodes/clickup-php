@@ -18,40 +18,40 @@ use GuzzleRetry\GuzzleRetryMiddleware;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class Client.
+ * Class Client
  */
 class Client
 {
     /**
      * @var GuzzleHttpClient
      */
-    private $guzzleClient;
+    private GuzzleHttpClient $guzzleClient;
 
     /**
      * The handler stack.
      *
      * @var HandlerStack
      */
-    private $handlerStack;
+    private HandlerStack $handlerStack;
 
     /**
      * Options.
      *
      * @var Options
      */
-    private $options;
+    private Options $options;
 
     /**
      * Store options.
      *
      * @var StoreOptions
      */
-    private $storeOptions;
+    private StoreOptions $storeOptions;
 
     /**
      * Client constructor.
      *
-     * @param Options           $options
+     * @param Options $options
      * @param StoreOptions|null $storeOptions
      */
     public function __construct(Options $options, ?StoreOptions $storeOptions = null)
@@ -63,12 +63,16 @@ class Client
     }
 
     /**
+     * Set up the Guzzle client with a configured handler stack.
+     *
      * @return void
      */
-    protected function setGuzzleClient()
+    protected function setGuzzleClient(): void
     {
         $this->handlerStack = HandlerStack::create($this->getOptions()->getGuzzleHandler());
-        $this->addMiddleware(new AuthRequest($this), 'request:auth')
+
+        $this
+            ->addMiddleware(new AuthRequest($this), 'request:auth')
             ->addMiddleware(new UpdateApiLimits($this), 'rate:update')
             ->addMiddleware(new UpdateRequestTime($this), 'time:update')
             ->addMiddleware(GuzzleRetryMiddleware::factory(), 'request:retry')
@@ -85,6 +89,8 @@ class Client
     }
 
     /**
+     * Get the options.
+     *
      * @return Options
      */
     public function getOptions(): Options
@@ -93,27 +99,32 @@ class Client
     }
 
     /**
+     * Set the options.
+     *
      * @param Options $options
      */
-    public function setOptions(Options $options)
+    public function setOptions(Options $options): void
     {
         $this->options = $options;
     }
 
     /**
-     * @param callable $callable
-     * @param string   $name
+     * Add a middleware to the handler stack.
+     *
+     * @param callable $callable The middleware callable
+     * @param string $name The middleware name
      *
      * @return Client
      */
     public function addMiddleware(callable $callable, string $name = ''): Client
     {
         $this->handlerStack->push($callable, $name);
-
         return $this;
     }
 
     /**
+     * Get the store options.
+     *
      * @return StoreOptions
      */
     public function getStoreOptions(): StoreOptions
@@ -122,15 +133,19 @@ class Client
     }
 
     /**
+     * Set the store options.
+     *
      * @param StoreOptions $storeOptions
      */
-    public function setStoreOptions(StoreOptions $storeOptions)
+    public function setStoreOptions(StoreOptions $storeOptions): void
     {
         $this->storeOptions = $storeOptions;
     }
 
     /**
-     * @return $this
+     * Get the client instance.
+     *
+     * @return Client
      */
     public function client(): Client
     {
@@ -138,9 +153,11 @@ class Client
     }
 
     /**
-     * @throws GuzzleException
+     * Get the current user.
      *
      * @return User
+     *
+     * @throws GuzzleException
      */
     public function user(): User
     {
@@ -148,21 +165,25 @@ class Client
     }
 
     /**
-     * @param $teamId
+     * Get a team by its ID.
      *
-     * @throws GuzzleException
+     * @param int|string $teamId
      *
      * @return Team
+     *
+     * @throws GuzzleException
      */
-    public function team($teamId): Team
+    public function team(int|string $teamId): Team
     {
         return $this->teams()->getByKey($teamId);
     }
 
     /**
-     * @throws GuzzleException
+     * Get all teams.
      *
      * @return TeamCollection
+     *
+     * @throws GuzzleException
      */
     public function teams(): TeamCollection
     {
@@ -173,6 +194,8 @@ class Client
     }
 
     /**
+     * Get a task finder for a given team.
+     *
      * @param int $teamId
      *
      * @return TaskFinder
@@ -183,63 +206,64 @@ class Client
     }
 
     /**
-     * @param string $method
-     * @param array  $params
+     * Send a GET request.
      *
-     * @throws GuzzleException
+     * @param string $method The method endpoint
+     * @param array $params The query parameters
      *
      * @return array|bool|float|int|object|string|null
+     *
+     * @throws GuzzleException
      */
     public function get(string $method, array $params = [])
     {
         $response = $this->guzzleClient->request('GET', $method, ['query' => $params]);
-
         return $this->decodeBody($response);
     }
 
     /**
-     * @param string $method
-     * @param array  $body
+     * Send a POST request.
      *
-     * @throws GuzzleException
+     * @param string $method The method endpoint
+     * @param array $body The request body
      *
      * @return array|bool|float|int|object|string|null
+     *
+     * @throws GuzzleException
      */
     public function post(string $method, array $body = [])
     {
         $response = $this->guzzleClient->request('POST', $method, ['json' => $body]);
-
         return $this->decodeBody($response);
     }
 
     /**
-     * @param string $method
-     * @param array  $body
+     * Send a PUT request.
      *
-     * @throws GuzzleException
+     * @param string $method The method endpoint
+     * @param array $body The request body
      *
      * @return array|bool|float|int|object|string|null
+     *
+     * @throws GuzzleException If the request fails
      */
     public function put(string $method, array $body = [])
     {
         $response = $this->guzzleClient->request('PUT', $method, ['json' => $body]);
-
         return $this->decodeBody($response);
     }
 
     /**
-     * Decode Body.
+     * Decode a response body.
      *
-     * @param ResponseInterface $response
+     * @param ResponseInterface $response The response to decode
      *
      * @return mixed
      */
     public function decodeBody(ResponseInterface $response)
     {
-        if (method_exists(Utils::class, 'jsonDecode')) {
-            return Utils::jsonDecode($response->getBody(), true);
-        } else {
-            return json_decode($response->getBody(), true);
-        }
+        return method_exists(Utils::class, 'jsonDecode')
+            ? Utils::jsonDecode($response->getBody(), true)
+            : json_decode($response->getBody(), true);
     }
 }
