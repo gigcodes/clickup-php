@@ -34,7 +34,7 @@ class TeamMemberCollection extends UserCollection
     /**
      * @param array $array
      */
-    protected function fromArray($array)
+    protected function fromArray($array): void
     {
         foreach ($array as $key => $value) {
             $array[$key] = $value['user'];
