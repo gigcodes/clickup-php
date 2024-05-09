@@ -65,7 +65,7 @@ class User extends AbstractObject
     /**
      * @param array $array
      */
-    protected function fromArray($array): void
+    protected function fromArray($array)
     {
         $this->id = $array['id'];
         $this->username = $array['username'];

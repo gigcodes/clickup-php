@@ -8,16 +8,16 @@ namespace ClickUp\Objects;
 class Status extends AbstractObject
 {
     /* @var int $id */
-    private int $id;
+    private $id;
 
     /* @var string $name */
-    private string $name;
+    private $name;
 
     /* @var string $color */
-    private string $color;
+    private $color;
 
     /* @var string $type */
-    private string $type;
+    private $type;
 
     /**
      * @return int
@@ -54,7 +54,7 @@ class Status extends AbstractObject
     /**
      * @param array $array
      */
-    protected function fromArray($array): void
+    protected function fromArray($array)
     {
         $this->id = $array['orderindex'];
         $this->name = $array['status'];

@@ -17,11 +17,11 @@ class AuthRequest extends AbstractMiddleware
      *
      * @return callable
      */
-    public function __invoke(callable $handler): callable
+    public function __invoke(callable $handler)
     {
+        $self = $this;
 
-        return function (RequestInterface $request, array $options) use ($handler) {
-            $self = $this;
+        return function (RequestInterface $request, array $options) use ($self, $handler) {
             $accessToken = $self->client->getOptions()->getAccessToken();
 
             if ($accessToken === null) {

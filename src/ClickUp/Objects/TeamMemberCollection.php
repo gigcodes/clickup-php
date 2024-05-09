@@ -16,7 +16,7 @@ class TeamMemberCollection extends UserCollection
         $this->setTeam($team);
     }
 
-    private function setTeam(Team $team): void
+    private function setTeam(Team $team)
     {
         foreach ($this as $teamMember) {
             $teamMember->setTeam($team);
@@ -34,7 +34,7 @@ class TeamMemberCollection extends UserCollection
     /**
      * @param array $array
      */
-    protected function fromArray($array): void
+    protected function fromArray($array)
     {
         foreach ($array as $key => $value) {
             $array[$key] = $value['user'];

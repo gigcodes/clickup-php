@@ -56,7 +56,7 @@ class TeamRole extends AbstractObject
     /**
      * @param Team $team
      */
-    public function setTeam(Team $team): void
+    public function setTeam(Team $team)
     {
         $this->team = $team;
     }
@@ -64,7 +64,7 @@ class TeamRole extends AbstractObject
     /**
      * @param $array
      */
-    protected function fromArray($array): void
+    protected function fromArray($array)
     {
         $this->id = $array['id'] ?? false;
         $this->name = $array['name'] ?? false;

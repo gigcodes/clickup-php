@@ -20,13 +20,13 @@ class UpdateApiLimits extends AbstractMiddleware
      */
     public function __invoke(callable $handler): callable
     {
+        $self = $this;
 
-        return function (RequestInterface $request, array $options) use ($handler) {
+        return function (RequestInterface $request, array $options) use ($self, $handler) {
             $promise = $handler($request, $options);
 
             return $promise->then(
-                function (ResponseInterface $response) {
-                    $self = $this;
+                function (ResponseInterface $response) use ($self) {
                     $rateLimitTotal = $response->getHeader(Options::HEADER_REST_API_LIMITS)[0];
                     $rateLimitRemaining = $response->getHeader(Options::HEADER_REST_API_LIMITS_REMAINING)[0];
 

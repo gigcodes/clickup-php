@@ -125,7 +125,7 @@ class TaskList extends AbstractObject
     /**
      * @param array $array
      */
-    protected function fromArray($array): void
+    protected function fromArray($array)
     {
         // @todo Add another params
         $this->id = $array['id'] ?? false;

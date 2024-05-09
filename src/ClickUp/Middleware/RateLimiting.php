@@ -18,9 +18,9 @@ class RateLimiting extends AbstractMiddleware
      */
     public function __invoke(callable $handler): callable
     {
+        $self = $this;
 
-        return function (RequestInterface $request, array $options) use ($handler) {
-            $self = $this;
+        return function (RequestInterface $request, array $options) use ($self, $handler) {
             $client = $self->client;
 
             $timeStore = $client->getStoreOptions()->getTimeStore();
@@ -34,7 +34,7 @@ class RateLimiting extends AbstractMiddleware
 
                 if ($currentTime <= $windowTime) {
                     $sleepTime = $windowTime - $currentTime;
-                    $timeDeferrer->sleep(max($sleepTime, 0));
+                    $timeDeferrer->sleep($sleepTime < 0 ? 0 : $sleepTime);
                 }
 
                 $timeStore->reset($client->getOptions());
