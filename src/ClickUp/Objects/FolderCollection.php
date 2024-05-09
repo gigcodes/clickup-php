@@ -10,7 +10,7 @@ namespace ClickUp\Objects;
  */
 class FolderCollection extends AbstractObjectCollection
 {
-    public function __construct(Space $space, $array)
+    public function __construct(Space $space, array $array)
     {
         parent::__construct($space->client(), $array);
         foreach ($this as $folder) {

@@ -7,29 +7,20 @@ use DateTimeImmutable;
 use Exception;
 
 /**
- * Class Comment.
+ * Class Comment
  */
 class Comment extends AbstractObject
 {
     use DateImmutableTrait;
 
-    /** @var string */
-    private $id;
-
-    /** @var string */
-    private $commentText;
-
-    /** @var User */
-    private $user;
-
-    /** @var bool */
-    private $isResolved;
-
-    /** @var DateTimeImmutable */
-    private $date;
+    private string $id;
+    private string $commentText;
+    private ?User $user;
+    private bool $isResolved;
+    private DateTimeImmutable $date;
 
     /**
-     * @return string
+     * Get the ID of the comment
      */
     public function id(): string
     {
@@ -37,7 +28,7 @@ class Comment extends AbstractObject
     }
 
     /**
-     * @return string
+     * Get the text of the comment
      */
     public function commentText(): string
     {
@@ -45,15 +36,15 @@ class Comment extends AbstractObject
     }
 
     /**
-     * @return User
+     * Get the user who made the comment
      */
-    public function user(): User
+    public function user(): ?User
     {
         return $this->user;
     }
 
     /**
-     * @return DateTimeImmutable
+     * Get the date of the comment
      */
     public function date(): DateTimeImmutable
     {
@@ -61,7 +52,7 @@ class Comment extends AbstractObject
     }
 
     /**
-     * @return bool
+     * Check if the comment is resolved
      */
     public function isResolved(): bool
     {
@@ -69,16 +60,17 @@ class Comment extends AbstractObject
     }
 
     /**
-     * @param $array
+     * Populate the comment object from an array
      *
+     * @param array $array
      * @throws Exception
      */
-    protected function fromArray($array)
+    protected function fromArray($array): void
     {
-        $this->id = $array['id'] ?? false;
-        $this->commentText = $array['comment_text'] ?? false;
-        $this->user = isset($array['user']) ? new User($this->client(), $array['user']) : false;
+        $this->id = $array['id'] ?? throw new Exception('Missing required field: id');
+        $this->commentText = $array['comment_text'] ?? throw new Exception('Missing required field: comment_text');
+        $this->user = isset($array['user']) ? new User($this->client(), $array['user']) : null;
         $this->isResolved = $array['resolved'] ?? false;
-        $this->date = isset($array['date']) ? $this->getDate($array, 'date') : false;
+        $this->date = $this->getDate($array, 'date') ?? throw new Exception('Missing required field: date');
     }
 }
