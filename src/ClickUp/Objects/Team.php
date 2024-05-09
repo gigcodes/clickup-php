@@ -14,7 +14,7 @@ class Team extends AbstractObject
     private int $id;
     private string $name;
     private string $color;
-    private string $avatar;
+    private ?string $avatar;
     private TeamMemberCollection $members;
     private TeamRoleCollection $roles;
     private ?SpaceCollection $spaces = null;
