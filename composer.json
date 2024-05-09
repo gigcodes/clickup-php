@@ -1,6 +1,6 @@
 {
-    "name": "eduard9969/clickup-php",
-    "description": "Fork ClickUp API client (unofficial)",
+    "name": "gigcodes/clickup-php",
+    "description": "Fork ClickUp API client",
     "keywords": [
         "ClickUp",
         "click-up",
