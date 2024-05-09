@@ -11,19 +11,10 @@ use GuzzleHttp\Exception\GuzzleException;
 class TaskList extends AbstractObject
 {
     use TaskFinderTrait;
-
-    /* @var int $id */
-    private $id;
-
-    /* @var string $name */
-    private $name;
-
-    /* @var string $content */
-    private $content;
-
-    /* @var Folder $folder */
-    private $folder;
-
+    private int $id;
+    private string $name;
+    private string $content;
+    private Folder $folder;
     /**
      * @return string
      */
@@ -35,7 +26,7 @@ class TaskList extends AbstractObject
     /**
      * @param Folder $folder
      */
-    public function setFolder(Folder $folder)
+    public function setFolder(Folder $folder): void
     {
         $this->folder = $folder;
     }
@@ -125,7 +116,7 @@ class TaskList extends AbstractObject
     /**
      * @param array $array
      */
-    protected function fromArray($array)
+    protected function fromArray($array): void
     {
         // @todo Add another params
         $this->id = $array['id'] ?? false;

@@ -13,9 +13,9 @@ class TaskCommentCollection extends CommentCollection
      * TaskCommentCollection constructor.
      *
      * @param Task $task
-     * @param $array
+     * @param array $array
      */
-    public function __construct(Task $task, $array)
+    public function __construct(Task $task, array $array)
     {
         parent::__construct($task->client(), $array);
         foreach ($this as $taskComment) {

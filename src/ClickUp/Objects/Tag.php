@@ -7,14 +7,9 @@ namespace ClickUp\Objects;
  */
 class Tag extends AbstractObject
 {
-    /** @var string */
-    private $name;
-
-    /** @var string */
-    private $tag_fg;
-
-    /** @var string */
-    private $tag_bg;
+    private string $name;
+    private string $tag_fg;
+    private string $tag_bg;
 
     /**
      * @return string
@@ -40,7 +35,7 @@ class Tag extends AbstractObject
         return $this->tag_bg;
     }
 
-    protected function fromArray($array)
+    protected function fromArray($array): void
     {
         $this->name = $array['name'] ?? false;
         $this->tag_fg = $array['tag_fg'] ?? false;

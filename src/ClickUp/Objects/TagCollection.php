@@ -13,7 +13,7 @@ class TagCollection extends AbstractObjectCollection
     /**
      * @param array $array
      */
-    protected function fromArray($array)
+    protected function fromArray($array): void
     {
         $i = 0;
         foreach ($array as $key => $tag) {

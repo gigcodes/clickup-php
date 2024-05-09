@@ -11,27 +11,13 @@ use GuzzleHttp\Exception\GuzzleException;
 class Team extends AbstractObject
 {
     use TaskFinderTrait;
-
-    /* @var int $id */
-    private $id;
-
-    /* @var string $name */
-    private $name;
-
-    /* @var string $color */
-    private $color;
-
-    /* @var string $avatar */
-    private $avatar;
-
-    /* @var TeamMemberCollection $members */
-    private $members;
-
-    /* @var TeamRoleCollection $roles */
-    private $roles;
-
-    /* @var SpaceCollection|null $spaces */
-    private $spaces = null;
+    private int $id;
+    private string $name;
+    private string $color;
+    private string $avatar;
+    private TeamMemberCollection $members;
+    private TeamRoleCollection $roles;
+    private ?SpaceCollection $spaces = null;
 
     /**
      * @return string
@@ -66,21 +52,19 @@ class Team extends AbstractObject
     }
 
     /**
-     * @param $spaceId
-     *
-     * @throws GuzzleException
+     * @param int $spaceId
      *
      * @return Space
+     * @throws GuzzleException
      */
-    public function space($spaceId): Space
+    public function space(int $spaceId): Space
     {
         return $this->spaces()->getByKey($spaceId);
     }
 
     /**
+     * @return SpaceCollection|null
      * @throws GuzzleException
-     *
-     * @return SpaceCollection
      */
     public function spaces(): ?SpaceCollection
     {
@@ -113,7 +97,7 @@ class Team extends AbstractObject
     /**
      * @param array $array
      */
-    protected function fromArray($array)
+    protected function fromArray($array): void
     {
         $this->id = $array['id'];
         $this->name = $array['name'];
