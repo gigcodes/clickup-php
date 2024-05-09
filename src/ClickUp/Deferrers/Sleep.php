@@ -12,7 +12,7 @@ class Sleep implements TimeDeferrer
     /**
      * @inheritDoc
      */
-    public function getCurrentTime()
+    public function getCurrentTime(): int|float
     {
         return microtime(true) * 1000000;
     }
@@ -20,7 +20,7 @@ class Sleep implements TimeDeferrer
     /**
      * @inheritDoc
      */
-    public function sleep(float $microseconds)
+    public function sleep(float $microseconds): void
     {
         usleep((int) $microseconds);
     }

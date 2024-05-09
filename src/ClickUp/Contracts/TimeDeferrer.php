@@ -12,7 +12,7 @@ interface TimeDeferrer
      *
      * @return mixed
      */
-    public function getCurrentTime();
+    public function getCurrentTime(): mixed;
 
     /**
      * Sleep.
@@ -21,5 +21,5 @@ interface TimeDeferrer
      *
      * @return mixed
      */
-    public function sleep(float $microseconds);
+    public function sleep(float $microseconds): mixed;
 }

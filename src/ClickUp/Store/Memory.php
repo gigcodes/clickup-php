@@ -34,7 +34,7 @@ class Memory implements StateStorage
     /**
      * @inheritDoc
      */
-    public function set(array $values, Options $options)
+    public function set(array $values, Options $options): void
     {
         $this->container[$options->getStoreKey()] = $values;
     }
@@ -42,7 +42,7 @@ class Memory implements StateStorage
     /**
      * @inheritDoc
      */
-    public function push($value, Options $options)
+    public function push($value, Options $options): void
     {
         $storeKey = $options->getStoreKey();
         if (!isset($this->container[$storeKey])) {
@@ -55,7 +55,7 @@ class Memory implements StateStorage
     /**
      * @inheritDoc
      */
-    public function reset(Options $options)
+    public function reset(Options $options): void
     {
         $this->container[$options->getStoreKey()] = [];
     }

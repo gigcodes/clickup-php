@@ -8,22 +8,22 @@ namespace ClickUp\Objects;
 class CustomField extends AbstractObject
 {
     /** @var string */
-    private $id;
+    private string $id;
 
     /** @var string */
-    private $name;
+    private string $name;
 
     /** @var string */
-    private $type;
+    private string $type;
 
     /** @var bool */
-    private $isHideFromGuests;
+    private bool $isHideFromGuests;
 
     /** @var mixed */
-    private $value;
+    private mixed $value;
 
     /** @var bool */
-    private $isRequired;
+    private bool $isRequired;
 
     /**
      * @return string
@@ -60,7 +60,7 @@ class CustomField extends AbstractObject
     /**
      * @return mixed
      */
-    public function value()
+    public function value(): mixed
     {
         return $this->value;
     }
@@ -76,7 +76,7 @@ class CustomField extends AbstractObject
     /**
      * @param $array
      */
-    protected function fromArray($array)
+    protected function fromArray($array): void
     {
         $this->id = $array['id'] ?? false;
         $this->name = $array['name'] ?? false;

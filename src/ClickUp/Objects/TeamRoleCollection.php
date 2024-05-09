@@ -25,7 +25,7 @@ class TeamRoleCollection extends AbstractObjectCollection
     /**
      * @param Team $team
      */
-    private function setTeam(Team $team)
+    private function setTeam(Team $team): void
     {
         foreach ($this as $teamRole) {
             $teamRole->setTeam($team);

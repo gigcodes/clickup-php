@@ -424,7 +424,7 @@ class Task extends AbstractObject
      *
      * @throws Exception
      */
-    protected function fromArray($array)
+    protected function fromArray($array): void
     {
         $this->id = $array['id'];
         $this->name = $array['name'];

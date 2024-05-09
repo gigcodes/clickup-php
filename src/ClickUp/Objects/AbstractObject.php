@@ -10,10 +10,10 @@ use ClickUp\Client;
 abstract class AbstractObject
 {
     /* @var Client $client */
-    private $client;
+    private Client $client;
 
     /* @var array $extra */
-    private $extra;
+    private array $extra;
 
     /**
      * @param Client $client
@@ -26,7 +26,7 @@ abstract class AbstractObject
         $this->setExtra($array);
     }
 
-    private function setClient(Client $client)
+    private function setClient(Client $client): void
     {
         $this->client = $client;
     }

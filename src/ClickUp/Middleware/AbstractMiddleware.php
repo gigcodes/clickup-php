@@ -12,7 +12,7 @@ abstract class AbstractMiddleware
     /**
      * @var Client
      */
-    protected $client;
+    protected Client $client;
 
     /**
      * AbstractMiddleware constructor.

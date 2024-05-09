@@ -95,7 +95,7 @@ class Client
     /**
      * @param Options $options
      */
-    public function setOptions(Options $options)
+    public function setOptions(Options $options): void
     {
         $this->options = $options;
     }
@@ -124,7 +124,7 @@ class Client
     /**
      * @param StoreOptions $storeOptions
      */
-    public function setStoreOptions(StoreOptions $storeOptions)
+    public function setStoreOptions(StoreOptions $storeOptions): void
     {
         $this->storeOptions = $storeOptions;
     }
@@ -190,7 +190,7 @@ class Client
      *
      * @return array|bool|float|int|object|string|null
      */
-    public function get(string $method, array $params = [])
+    public function get(string $method, array $params = []): float|object|array|bool|int|string|null
     {
         $response = $this->guzzleClient->request('GET', $method, ['query' => $params]);
 
@@ -234,7 +234,7 @@ class Client
      *
      * @return mixed
      */
-    public function decodeBody(ResponseInterface $response)
+    public function decodeBody(ResponseInterface $response): mixed
     {
         if (method_exists(Utils::class, 'jsonDecode')) {
             return Utils::jsonDecode($response->getBody(), true);

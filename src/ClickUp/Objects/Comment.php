@@ -14,19 +14,19 @@ class Comment extends AbstractObject
     use DateImmutableTrait;
 
     /** @var string */
-    private $id;
+    private string $id;
 
     /** @var string */
-    private $commentText;
+    private string $commentText;
 
     /** @var User */
-    private $user;
+    private User $user;
 
     /** @var bool */
-    private $isResolved;
+    private bool $isResolved;
 
     /** @var DateTimeImmutable */
-    private $date;
+    private DateTimeImmutable $date;
 
     /**
      * @return string
@@ -73,7 +73,7 @@ class Comment extends AbstractObject
      *
      * @throws Exception
      */
-    protected function fromArray($array)
+    protected function fromArray($array): void
     {
         $this->id = $array['id'] ?? false;
         $this->commentText = $array['comment_text'] ?? false;

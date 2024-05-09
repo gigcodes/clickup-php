@@ -113,7 +113,7 @@ class Team extends AbstractObject
     /**
      * @param array $array
      */
-    protected function fromArray($array)
+    protected function fromArray($array): void
     {
         $this->id = $array['id'];
         $this->name = $array['name'];

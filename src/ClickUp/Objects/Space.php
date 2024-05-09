@@ -13,28 +13,28 @@ class Space extends AbstractObject
     use TaskFinderTrait;
 
     /* @var int $id */
-    private $id;
+    private int $id;
 
     /* @var string $name */
-    private $name;
+    private string $name;
 
     /* @var bool $isPrivate */
-    private $isPrivate;
+    private bool $isPrivate;
 
     /* @var StatusCollection $statuses */
-    private $statuses;
+    private StatusCollection $statuses;
 
     /* @var array $clickApps */
-    private $clickApps;
+    private array $clickApps;
 
     /* @var int|null $teamId */
-    private $teamId;
+    private ?int $teamId;
 
     /* @var Team $team */
-    private $team;
+    private Team $team;
 
     /* @var FolderCollection|null $folders */
-    private $folders = null;
+    private ?FolderCollection $folders = null;
 
     /**
      * @return string
@@ -81,9 +81,8 @@ class Space extends AbstractObject
     }
 
     /**
+     * @return FolderCollection|null
      * @throws GuzzleException
-     *
-     * @return FolderCollection
      */
     public function folders(): ?FolderCollection
     {
@@ -108,7 +107,7 @@ class Space extends AbstractObject
     /**
      * @param Team $team
      */
-    public function setTeam(Team $team)
+    public function setTeam(Team $team): void
     {
         $this->team = $team;
     }
@@ -142,7 +141,7 @@ class Space extends AbstractObject
     /**
      * @param array $array
      */
-    protected function fromArray($array)
+    protected function fromArray($array): void
     {
         $this->id = $array['id'];
         $this->name = $array['name'];

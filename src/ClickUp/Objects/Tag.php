@@ -40,7 +40,7 @@ class Tag extends AbstractObject
         return $this->tag_bg;
     }
 
-    protected function fromArray($array)
+    protected function fromArray($array): void
     {
         $this->name = $array['name'] ?? false;
         $this->tag_fg = $array['tag_fg'] ?? false;

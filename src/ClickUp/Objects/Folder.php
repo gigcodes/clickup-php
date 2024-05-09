@@ -13,34 +13,34 @@ class Folder extends AbstractObject
     use TaskFinderTrait;
 
     /* @var int $id */
-    private $id;
+    private int $id;
 
     /* @var string $name */
-    private $name;
+    private string $name;
 
     /** @var int */
-    private $orderIndex;
+    private int $orderIndex;
 
     /** @var bool */
-    private $isHidden;
+    private bool $isHidden;
 
     /** @var string */
-    private $taskCount;
+    private string $taskCount;
 
     /* @var TaskListCollection $taskLists */
-    private $taskLists;
+    private TaskListCollection $taskLists;
 
     /* @var bool $overrideStatuses */
-    private $overrideStatuses;
+    private bool $overrideStatuses;
 
     /* @var StatusCollection|null $statuses */
-    private $statuses = null;
+    private ?StatusCollection $statuses = null;
 
     /* @var int $spaceId */
-    private $spaceId;
+    private int $spaceId;
 
     /* @var Space $space */
-    private $space;
+    private Space $space;
 
     /**
      * @return string
@@ -191,7 +191,7 @@ class Folder extends AbstractObject
     /**
      * @param array $array
      */
-    protected function fromArray($array)
+    protected function fromArray($array): void
     {
         $this->id = $array['id'];
         $this->name = $array['name'];

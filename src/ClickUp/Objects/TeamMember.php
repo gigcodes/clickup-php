@@ -42,7 +42,7 @@ class TeamMember extends User
     /**
      * @param array $array
      */
-    public function fromArray($array)
+    public function fromArray($array): void
     {
         $this->role = $array['role'];
         parent::fromArray($array);

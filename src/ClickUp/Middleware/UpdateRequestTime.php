@@ -18,9 +18,9 @@ class UpdateRequestTime extends AbstractMiddleware
      */
     public function __invoke(callable $handler): callable
     {
-        $self = $this;
 
-        return function (RequestInterface $request, array $options) use ($self, $handler) {
+        return function (RequestInterface $request, array $options) use ($handler) {
+            $self = $this;
             $client = $self->client;
 
             $client->getStoreOptions()->getTimeStore()->push(

@@ -33,7 +33,7 @@ interface StateStorage
      *
      * @return void
      */
-    public function set(array $values, Options $options);
+    public function set(array $values, Options $options): void;
 
     /**
      * Set the values.
@@ -43,7 +43,7 @@ interface StateStorage
      *
      * @return void
      */
-    public function push($value, Options $options);
+    public function push($value, Options $options): void;
 
     /**
      * Remove all values.
@@ -52,5 +52,5 @@ interface StateStorage
      *
      * @return void
      */
-    public function reset(Options $options);
+    public function reset(Options $options): void;
 }
