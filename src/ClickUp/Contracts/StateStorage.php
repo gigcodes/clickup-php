@@ -10,47 +10,47 @@ use ClickUp\Options;
 interface StateStorage
 {
     /**
-     * Get all.
+     * Get all stored values.
      *
-     * @return array
+     * @return array Array of stored values
      */
     public function all(): array;
 
     /**
-     * Get the values.
+     * Get the values based on provided options.
      *
-     * @param Options $options
+     * @param Options $options Options to determine which values to retrieve
      *
-     * @return array
+     * @return array Array of values based on options
      */
     public function get(Options $options): array;
 
     /**
-     * Set the values.
+     * Set the values based on provided options.
      *
-     * @param array   $values
-     * @param Options $options
+     * @param array   $values Values to be stored
+     * @param Options $options Options to determine where to store the values
      *
      * @return void
      */
-    public function set(array $values, Options $options);
+    public function set(array $values, Options $options): void;
 
     /**
-     * Set the values.
+     * Append a single value to the storage based on options.
      *
-     * @param $value
-     * @param Options $options
+     * @param mixed   $value Value to be appended
+     * @param Options $options Options to determine where to append the value
      *
      * @return void
      */
-    public function push($value, Options $options);
+    public function push(mixed $value, Options $options): void;
 
     /**
-     * Remove all values.
+     * Reset or remove all stored values based on options.
      *
-     * @param Options $options
+     * @param Options $options Options to determine which values to reset
      *
      * @return void
      */
-    public function reset(Options $options);
+    public function reset(Options $options): void;
 }
