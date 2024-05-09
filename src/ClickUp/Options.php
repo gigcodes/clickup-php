@@ -3,63 +3,77 @@
 namespace ClickUp;
 
 /**
- * Class Options
+ * Class Option.
  */
 class Options
 {
     /**
-     * Rest Limit Total
+     * Rest Limit Total.
      */
     public const HEADER_REST_API_LIMITS = 'X-RateLimit-Limit';
 
     /**
-     * Rest Limit Total Remaining
+     * Rest Limit Total Remaining.
      */
     public const HEADER_REST_API_LIMITS_REMAINING = 'X-RateLimit-Remaining';
 
     /**
-     * Access Token
+     * Access Token.
+     *
+     * @var string|null
      */
-    protected ?string $accessToken;
+    protected $accessToken;
 
     /**
-     * API version
+     * Api version.
+     *
+     * @var int
      */
-    protected int $apiVersion = 2;
+    protected $apiVersion = 2;
 
     /**
-     * Additional Guzzle options
+     * Additional Guzzle options.
+     *
+     * @var array
      */
-    protected array $guzzleOptions = [
+    protected $guzzleOptions = [
         'headers' => [
             'Content-Type' => 'application/json',
         ],
-        'timeout' => 10.0,
-        'max_retry_attempts' => 3,
+        'timeout'                  => 10.0,
+        'max_retry_attempts'       => 3,
         'default_retry_multiplier' => 2.0,
-        'retry_on_status' => [429, 503, 500],
+        'retry_on_status'          => [429, 503, 500],
     ];
 
     /**
-     * Guzzle handler (Optional)
+     * Guzzle handler [Optional].
+     *
+     * @var callable|null
      */
-    protected $guzzleHandler = null;
+    protected $guzzleHandler;
 
     /**
-     * API rate limit
+     * API rate limit.
+     *
+     * @var int
      */
-    protected int $rateLimit = 100;
+    protected $rateLimit = 100;
 
     /**
-     * Options constructor
+     * Option constructor.
+     *
+     * @param $accessToken
      */
-    public function __construct(?string $accessToken)
+    public function __construct($accessToken)
     {
         $this->accessToken = $accessToken;
     }
 
     /**
-     * Get the Access Token
+     * Get Access Token.
+     *
+     * @return string|null
      */
     public function getAccessToken(): ?string
     {
@@ -67,15 +81,19 @@ class Options
     }
 
     /**
-     * Get a unique storage key based on the access token
+     * Get Access Token.
+     *
+     * @return string|null
      */
     public function getStoreKey(): ?string
     {
-        return substr(md5($this->accessToken . 'storage_key'), 0, 12);
+        return substr(md5($this->accessToken.'storage_key'), 0, 12);
     }
 
     /**
-     * Get URI with API version
+     * Get URI With Version.
+     *
+     * @return string
      */
     public function getUriWithVersion(): string
     {
@@ -83,7 +101,9 @@ class Options
     }
 
     /**
-     * Get the API version
+     * Get Api Version.
+     *
+     * @return int
      */
     public function getApiVersion(): int
     {
@@ -91,7 +111,9 @@ class Options
     }
 
     /**
-     * Get Guzzle options
+     * Get Guzzle Options.
+     *
+     * @return array
      */
     public function getGuzzleOptions(): array
     {
@@ -99,15 +121,19 @@ class Options
     }
 
     /**
-     * Set Guzzle options, merging with existing options
+     * Set Guzzle Options.
+     *
+     * @param array $options
      */
-    public function setGuzzleOptions(array $options): void
+    public function setGuzzleOptions(array $options)
     {
         $this->guzzleOptions = array_merge($this->guzzleOptions, $options);
     }
 
     /**
-     * Get the Guzzle handler
+     * Get the Guzzle handler.
+     *
+     * @return callable|null
      */
     public function getGuzzleHandler(): ?callable
     {
@@ -115,7 +141,9 @@ class Options
     }
 
     /**
-     * Get the API rate limit
+     * Get rate limit.
+     *
+     * @return int
      */
     public function getRateLimit(): int
     {

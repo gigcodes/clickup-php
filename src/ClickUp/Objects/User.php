@@ -7,11 +7,20 @@ namespace ClickUp\Objects;
  */
 class User extends AbstractObject
 {
-    private int $id;
-    private string $username;
-    private string $color;
-    private string $profilePicture;
-    private string|null $initials = null;
+    /* @var int $id */
+    private $id;
+
+    /* @var string $username */
+    private $username;
+
+    /* @var string $color */
+    private $color;
+
+    /* @var string $profilePicture */
+    private $profilePicture;
+
+    /* @var string|null $initials */
+    private $initials = null;
 
     /**
      * @return int
@@ -56,7 +65,7 @@ class User extends AbstractObject
     /**
      * @param array $array
      */
-    protected function fromArray($array): void
+    protected function fromArray($array)
     {
         $this->id = $array['id'];
         $this->username = $array['username'];

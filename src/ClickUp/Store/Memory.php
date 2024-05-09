@@ -6,23 +6,17 @@ use ClickUp\Contracts\StateStorage;
 use ClickUp\Options;
 
 /**
- * Class Memory
- *
- * In-memory state storage implementation of StateStorage interface.
+ * Class Memory.
  */
 class Memory implements StateStorage
 {
     /**
-     * In-memory container for storing data.
-     *
-     * @var array<string, array>
+     * @var array
      */
-    protected array $container = [];
+    protected $container = [];
 
     /**
-     * Retrieve all stored data.
-     *
-     * @return array<string, array>
+     * @inheritDoc
      */
     public function all(): array
     {
@@ -30,11 +24,7 @@ class Memory implements StateStorage
     }
 
     /**
-     * Retrieve data for a specific key based on options.
-     *
-     * @param Options $options Options containing the key for retrieval
-     *
-     * @return array The stored values associated with the given key
+     * @inheritDoc
      */
     public function get(Options $options): array
     {
@@ -42,27 +32,17 @@ class Memory implements StateStorage
     }
 
     /**
-     * Set data for a specific key.
-     *
-     * @param array $values Values to be stored
-     * @param Options $options Options containing the key for storage
-     *
-     * @return void
+     * @inheritDoc
      */
-    public function set(array $values, Options $options): void
+    public function set(array $values, Options $options)
     {
         $this->container[$options->getStoreKey()] = $values;
     }
 
     /**
-     * Push a new value to the front of the array for a specific key.
-     *
-     * @param mixed $value Value to be stored
-     * @param Options $options Options containing the key for storage
-     *
-     * @return void
+     * @inheritDoc
      */
-    public function push(mixed $value, Options $options): void
+    public function push($value, Options $options)
     {
         $storeKey = $options->getStoreKey();
         if (!isset($this->container[$storeKey])) {
@@ -73,13 +53,9 @@ class Memory implements StateStorage
     }
 
     /**
-     * Reset the stored values for a specific key.
-     *
-     * @param Options $options Options containing the key to reset
-     *
-     * @return void
+     * @inheritDoc
      */
-    public function reset(Options $options): void
+    public function reset(Options $options)
     {
         $this->container[$options->getStoreKey()] = [];
     }

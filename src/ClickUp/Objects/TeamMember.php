@@ -7,8 +7,11 @@ namespace ClickUp\Objects;
  */
 class TeamMember extends User
 {
-    private int $role;
-    private Team $team;
+    /* @var int $role */
+    private $role;
+
+    /* @var Team $team */
+    private $team;
 
     /**
      * @return int
@@ -31,7 +34,7 @@ class TeamMember extends User
     /**
      * @param Team $team
      */
-    public function setTeam(Team $team): void
+    public function setTeam(Team $team)
     {
         $this->team = $team;
     }
@@ -39,7 +42,7 @@ class TeamMember extends User
     /**
      * @param array $array
      */
-    public function fromArray($array):void
+    public function fromArray($array)
     {
         $this->role = $array['role'];
         parent::fromArray($array);

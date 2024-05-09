@@ -12,16 +12,35 @@ class Folder extends AbstractObject
 {
     use TaskFinderTrait;
 
-    private int $id;
-    private string $name;
-    private int $orderIndex;
-    private bool $isHidden;
-    private string $taskCount;
-    private TaskListCollection $taskLists;
-    private bool $overrideStatuses;
-    private ?StatusCollection $statuses = null;
-    private int $spaceId;
-    private Space $space;
+    /* @var int $id */
+    private $id;
+
+    /* @var string $name */
+    private $name;
+
+    /** @var int */
+    private $orderIndex;
+
+    /** @var bool */
+    private $isHidden;
+
+    /** @var string */
+    private $taskCount;
+
+    /* @var TaskListCollection $taskLists */
+    private $taskLists;
+
+    /* @var bool $overrideStatuses */
+    private $overrideStatuses;
+
+    /* @var StatusCollection|null $statuses */
+    private $statuses = null;
+
+    /* @var int $spaceId */
+    private $spaceId;
+
+    /* @var Space $space */
+    private $space;
 
     /**
      * @return string
@@ -82,7 +101,7 @@ class Folder extends AbstractObject
     }
 
     /**
-     * @return StatusCollection|null
+     * @return StatusCollection
      */
     public function statuses(): ?StatusCollection
     {
@@ -94,7 +113,7 @@ class Folder extends AbstractObject
         return $this->spaceId;
     }
 
-    public function setSpaceId(int $spaceId): void
+    public function setSpaceId($spaceId)
     {
         $this->spaceId = $spaceId;
     }
@@ -102,7 +121,7 @@ class Folder extends AbstractObject
     /**
      * @param Space $space
      */
-    public function setSpace(Space $space): void
+    public function setSpace(Space $space)
     {
         $this->space = $space;
     }
@@ -110,7 +129,7 @@ class Folder extends AbstractObject
     /**
      * @param StatusCollection $statuses
      */
-    public function setStatuses(StatusCollection $statuses): void
+    public function setStatuses(StatusCollection $statuses)
     {
         $this->statuses = $statuses;
     }
@@ -172,7 +191,7 @@ class Folder extends AbstractObject
     /**
      * @param array $array
      */
-    protected function fromArray($array): void
+    protected function fromArray($array)
     {
         $this->id = $array['id'];
         $this->name = $array['name'];

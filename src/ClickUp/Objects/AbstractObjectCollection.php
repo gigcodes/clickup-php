@@ -8,30 +8,31 @@ use RuntimeException;
 use Traversable;
 
 /**
- * Class AbstractObjectCollection
+ * Class AbstractObjectCollection.
  */
 abstract class AbstractObjectCollection extends AbstractObject implements IteratorAggregate
 {
-    protected array $objects = [];
+    /* @var AbstractObject[] $objects */
+    protected $objects;
 
     /**
-     * Get an object by its key (ID)
-     *
      * @param string $id
+     *
      * @return AbstractObject
-     * @throws RuntimeException if the object with the given ID does not exist
      */
     public function getByKey(string $id): AbstractObject
     {
-        return $this->objects[$id] ?? throw new RuntimeException("id:$id not exist.");
+        if (!isset($this->objects[$id])) {
+            throw new RuntimeException("id:$id not exist.");
+        }
+
+        return $this->objects[$id];
     }
 
     /**
-     * Get an object by its name
-     *
      * @param string $name
+     *
      * @return AbstractObject
-     * @throws RuntimeException if the object with the given name does not exist
      */
     public function getByName(string $name): AbstractObject
     {
@@ -46,7 +47,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     }
 
     /**
-     * The name key to use for comparisons
+     * @return string
      */
     protected function nameKey(): string
     {
@@ -54,16 +55,14 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     }
 
     /**
-     * Return an iterator over the collection
+     * @return ArrayIterator|Traversable
      */
-    public function getIterator(): Traversable
+    public function getIterator()
     {
         return new ArrayIterator($this->objects());
     }
 
     /**
-     * Get all objects in the collection
-     *
      * @return AbstractObject[]
      */
     public function objects(): array
@@ -72,7 +71,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     }
 
     /**
-     * Check if the collection is not empty
+     * @return bool
      */
     public function isNotEmpty(): bool
     {
@@ -80,15 +79,15 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     }
 
     /**
-     * Check if the collection is empty
+     * @return bool
      */
     public function isEmpty(): bool
     {
-        return $this->count() === 0;
+        return $this->count() == 0;
     }
 
     /**
-     * Get the count of objects in the collection
+     * @return int
      */
     public function count(): int
     {
@@ -96,9 +95,9 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     }
 
     /**
-     * Populate the collection from an array
+     * @param array $array
      */
-    protected function fromArray($array): void
+    protected function fromArray($array)
     {
         $class = $this->objectClass();
         foreach ($array as $value) {
@@ -110,12 +109,12 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     }
 
     /**
-     * Return the fully-qualified class name of the objects in this collection
+     * @return string
      */
     abstract protected function objectClass(): string;
 
     /**
-     * The key to use when indexing the objects
+     * @return string
      */
     protected function key(): string
     {

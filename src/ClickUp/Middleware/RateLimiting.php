@@ -3,43 +3,38 @@
 namespace ClickUp\Middleware;
 
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class RateLimiting
- *
- * Middleware class that implements rate limiting to manage request rates.
+ * Class RateLimiting.
  */
 class RateLimiting extends AbstractMiddleware
 {
     /**
-     * Invoke the middleware to apply rate limiting to outgoing requests.
+     * Invoke.
      *
-     * @param callable $handler The next handler in the middleware chain
+     * @param callable $handler
      *
-     * @return callable A handler function that applies rate limiting
+     * @return callable
      */
     public function __invoke(callable $handler): callable
     {
+        $self = $this;
 
-        return function (RequestInterface $request, array $options) use ($handler) {
-            $self = $this;
+        return function (RequestInterface $request, array $options) use ($self, $handler) {
             $client = $self->client;
+
             $timeStore = $client->getStoreOptions()->getTimeStore();
             $timeDeferrer = $client->getStoreOptions()->getTimeDeferrer();
 
             $times = $timeStore->get($client->getOptions());
-            $rateLimit = $client->getOptions()->getRateLimit();
-
-            // If the rate limit is reached, implement the rate limiting logic
-            if (count($times) >= $rateLimit) {
+            if (count($times) >= $client->getOptions()->getRateLimit()) {
                 $firstTime = end($times);
-                $windowTime = $firstTime + 1000000; // 1 million microseconds = 1 second
+                $windowTime = $firstTime + 1000000;
                 $currentTime = $timeDeferrer->getCurrentTime();
 
                 if ($currentTime <= $windowTime) {
                     $sleepTime = $windowTime - $currentTime;
-                    $timeDeferrer->sleep(max($sleepTime, 0));
+                    $timeDeferrer->sleep($sleepTime < 0 ? 0 : $sleepTime);
                 }
 
                 $timeStore->reset($client->getOptions());

@@ -10,21 +10,17 @@ use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * Trait TaskFinderTrait
- *
- * Provides methods to find tasks and their collections.
+ * Trait TaskFinderTrait.
  */
 trait TaskFinderTrait
 {
     /**
-     * Retrieve a collection of tasks with optional sub-task and closed task inclusion.
+     * @param bool $includeSubTask
+     * @param bool $includeClosed
      *
-     * @param bool $includeSubTask Whether to include sub-tasks
-     * @param bool $includeClosed Whether to include closed tasks
+     * @throws GuzzleException
      *
-     * @return TaskCollection The retrieved collection of tasks
-     *
-     * @throws GuzzleException If there's an error communicating with the API
+     * @return TaskCollection
      */
     public function tasks(bool $includeSubTask = false, bool $includeClosed = false): TaskCollection
     {
@@ -36,9 +32,7 @@ trait TaskFinderTrait
     }
 
     /**
-     * Retrieve a `TaskFinder` object.
-     *
-     * @return TaskFinder A `TaskFinder` instance with the appropriate parameters
+     * @return TaskFinder
      */
     public function taskFinder(): TaskFinder
     {
@@ -46,23 +40,17 @@ trait TaskFinderTrait
     }
 
     /**
-     * Retrieve the client instance.
-     *
-     * @return Client The `Client` instance used to make API requests
+     * @return Client
      */
     abstract public function client(): Client;
 
     /**
-     * Retrieve the team ID.
-     *
-     * @return int The team ID associated with the current client
+     * @return int
      */
     abstract public function teamId(): int;
 
     /**
-     * Retrieve additional task finding parameters.
-     *
-     * @return array Additional parameters for task finding
+     * @return array
      */
     protected function taskFindParams(): array
     {
@@ -70,17 +58,15 @@ trait TaskFinderTrait
     }
 
     /**
-     * Process tasks in chunks using a callback function.
+     * @param false         $includeSubTask
+     * @param false         $includeClosed
+     * @param callable|null $callback
      *
-     * @param bool $includeSubTask Whether to include sub-tasks
-     * @param bool $includeClosed Whether to include closed tasks
-     * @param callable|null $callback A callback function to process each chunk
+     * @throws GuzzleException
      *
-     * @return bool `True` if all chunks were processed successfully, otherwise `False`
-     *
-     * @throws GuzzleException If there's an error communicating with the API
+     * @return bool
      */
-    public function tasksChunk(bool $includeSubTask = false, bool $includeClosed = false, ?callable $callback = null): bool
+    public function tasksChunk(bool $includeSubTask = false, bool $includeClosed = false, callable $callback = null): bool
     {
         $page = 0;
 
@@ -104,7 +90,7 @@ trait TaskFinderTrait
                 break;
             }
 
-            if ($callback === null || $callback($tasks) === false) {
+            if ($callback == null || $callback($tasks) == false) {
                 return false;
             }
 
@@ -116,13 +102,11 @@ trait TaskFinderTrait
     }
 
     /**
-     * Retrieve a single task by its ID.
+     * @param string $taskId
      *
-     * @param string $taskId The ID of the task to retrieve
+     * @throws GuzzleException
      *
-     * @return Task The retrieved task
-     *
-     * @throws GuzzleException If there's an error communicating with the API
+     * @return Task
      */
     public function task(string $taskId): Task
     {

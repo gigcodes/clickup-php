@@ -6,38 +6,30 @@ use DateTimeImmutable;
 use Exception;
 
 /**
- * Trait DateImmutableTrait
- *
- * Provides utilities for handling date-time conversion.
+ * Trait DateImmutableTrait.
  */
 trait DateImmutableTrait
 {
     /**
-     * Retrieve a `DateTimeImmutable` object based on an array key.
+     * @param $array
+     * @param $key
      *
-     * @param array $array Array containing date values
-     * @param string|int $key The key to look for in the array
+     * @throws Exception
      *
-     * @return DateTimeImmutable|null A `DateTimeImmutable` object or null if the key doesn't exist
-     *
-     * @throws Exception If the DateTime conversion fails
+     * @return DateTimeImmutable|null
      */
-    private function getDate(array $array, string|int $key): ?DateTimeImmutable
+    private function getDate($array, $key): ?DateTimeImmutable
     {
         if (!isset($array[$key])) {
             return null;
         }
-
-        // Retrieve the first 10 characters representing Unix time and convert to `DateTimeImmutable`
-        $unixTime = substr((string)$array[$key], 0, 10);
+        $unixTime = substr($array[$key], 0, 10);
 
         return new DateTimeImmutable("@$unixTime");
     }
 
     /**
-     * Get the current date in milliseconds.
-     *
-     * @return float Current date as a timestamp in milliseconds
+     * @return float
      */
     private function getCurrentDate(): float
     {

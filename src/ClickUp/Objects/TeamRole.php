@@ -7,10 +7,17 @@ namespace ClickUp\Objects;
  */
 class TeamRole extends AbstractObject
 {
-    private int $id;
-    private string $name;
-    private bool $isCustom;
-    private Team $team;
+    /** @var int */
+    private $id;
+
+    /** @var string */
+    private $name;
+
+    /** @var bool */
+    private $isCustom;
+
+    /* @var Team $team */
+    private $team;
 
     /**
      * @return int
@@ -49,15 +56,15 @@ class TeamRole extends AbstractObject
     /**
      * @param Team $team
      */
-    public function setTeam(Team $team): void
+    public function setTeam(Team $team)
     {
         $this->team = $team;
     }
 
     /**
-     * @param array $array
+     * @param $array
      */
-    protected function fromArray($array): void
+    protected function fromArray($array)
     {
         $this->id = $array['id'] ?? false;
         $this->name = $array['name'] ?? false;

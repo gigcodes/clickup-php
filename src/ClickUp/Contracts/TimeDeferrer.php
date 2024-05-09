@@ -4,24 +4,22 @@ namespace ClickUp\Contracts;
 
 /**
  * Interface TimeDeferrer.
- *
- * This interface defines methods for obtaining the current time and deferring execution for a specific duration.
  */
 interface TimeDeferrer
 {
     /**
-     * Get the current time.
+     * Get current time.
      *
-     * @return float Current time as a Unix timestamp with microsecond precision
+     * @return mixed
      */
-    public function getCurrentTime(): float;
+    public function getCurrentTime();
 
     /**
-     * Pause execution for the specified duration in microseconds.
+     * Sleep.
      *
-     * @param float $microseconds Duration in microseconds to pause execution
+     * @param float $microseconds
      *
-     * @return void
+     * @return mixed
      */
-    public function sleep(float $microseconds): void;
+    public function sleep(float $microseconds);
 }

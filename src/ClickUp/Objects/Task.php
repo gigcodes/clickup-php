@@ -16,35 +16,89 @@ class Task extends AbstractObject
     use TaskFinderTrait;
     use DateImmutableTrait;
 
+    /* @var string $id */
+    private $id;
 
-    private string $id;
-    private string $name;
-    private string $description;
-    private Status $status;
-    private string $orderindex;
-    private DateTimeImmutable $dateCreated;
-    private DateTimeImmutable $dateUpdated;
-    private TeamMember $creator;
-    private TeamMemberCollection $assignees;
-    private TagCollection $tags;
-    private ?string $parentTaskId;
-    private ?Task $parentTask = null;
-    private int $priority;
-    private DateTimeImmutable $dueDate;
-    private DateTimeImmutable $startDate;
-    private int $points;
-    private ?string $timeEstimate;
-    private CustomFieldCollection $customFields;
-    private int $taskListId;
-    private ?TaskList $taskList = null;
-    private int $folderId;
-    private ?Folder $folder = null;
-    private int $spaceId;
-    private ?Space $space = null;
-    private int $teamId;
-    private ?Team $team = null;
-    private ?TaskCommentCollection $comment = null;
-    private string $url;
+    /* @var string $name */
+    private $name;
+
+    /* @var string $description */
+    private $description;
+
+    /* @var Status $status */
+    private $status;
+
+    /* @var string $orderindex */
+    private $orderindex;
+
+    /* @var DateTimeImmutable $dateCreated */
+    private $dateCreated;
+
+    /* @var DateTimeImmutable $dateUpdated */
+    private $dateUpdated;
+
+    /* @var TeamMember $creator */
+    private $creator;
+
+    /* @var TeamMemberCollection $assignees */
+    private $assignees;
+
+    /* @var TagCollection $tags */
+    private $tags;
+
+    /* @var string|null $parentTaskId */
+    private $parentTaskId;
+
+    /* @var Task|null $parentTask */
+    private $parentTask = null;
+
+    /* @var int $priority */
+    private $priority;
+
+    /* @var DateTimeImmutable $dueDate */
+    private $dueDate;
+
+    /* @var DateTimeImmutable $startDate */
+    private $startDate;
+
+    /* @var int $points */
+    private $points;
+
+    /* @var string $timeEstimate */
+    private $timeEstimate;
+
+    /** @var CustomFieldCollection */
+    private $customFields;
+
+    /* @var int $taskListId */
+    private $taskListId;
+
+    /* @var TaskList|null $taskList */
+    private $taskList = null;
+
+    /* @var int $folderId */
+    private $folderId;
+
+    /* @var Folder|null $folder */
+    private $folder = null;
+
+    /* @var int $spaceId */
+    private $spaceId;
+
+    /* @var Space|null $space */
+    private $space = null;
+
+    /* @var int $teamId */
+    private $teamId;
+
+    /* @var Team|null $team */
+    private $team = null;
+
+    /* @var TaskCommentCollection|null $comment */
+    private $comment = null;
+
+    /* @var string $url */
+    private $url;
 
     /**
      * @return string
@@ -202,8 +256,9 @@ class Task extends AbstractObject
     }
 
     /**
-     * @return TaskList|null
      * @throws GuzzleException
+     *
+     * @return TaskList
      */
     public function taskList(): ?TaskList
     {
@@ -215,8 +270,9 @@ class Task extends AbstractObject
     }
 
     /**
-     * @return Folder|null
      * @throws GuzzleException
+     *
+     * @return Folder
      */
     public function folder(): ?Folder
     {
@@ -228,8 +284,9 @@ class Task extends AbstractObject
     }
 
     /**
-     * @return Space|null
      * @throws GuzzleException
+     *
+     * @return Space
      */
     public function space(): ?Space
     {
@@ -241,8 +298,9 @@ class Task extends AbstractObject
     }
 
     /**
-     * @return Team|null
      * @throws GuzzleException
+     *
+     * @return Team
      */
     public function team(): ?Team
     {
@@ -311,9 +369,9 @@ class Task extends AbstractObject
     }
 
     /**
-     * @param int $teamId
+     * @param $teamId
      */
-    public function setTeamId(int $teamId): void
+    public function setTeamId($teamId)
     {
         $this->teamId = $teamId;
     }
@@ -362,12 +420,11 @@ class Task extends AbstractObject
     }
 
     /**
-     * @param array $array
+     * @param $array
      *
      * @throws Exception
-     * @throws GuzzleException
      */
-    protected function fromArray($array): void
+    protected function fromArray($array)
     {
         $this->id = $array['id'];
         $this->name = $array['name'];
@@ -379,12 +436,12 @@ class Task extends AbstractObject
         $this->orderindex = $array['orderindex'];
         $this->dateCreated = $this->getDate($array, 'date_created');
         $this->dateUpdated = $this->getDate($array, 'date_updated');
-        $this->creator = new TeamMember(
+        $this->creator = new User(
             $this->client(),
             $array['creator']
         );
-        $this->assignees = new TeamMemberCollection(
-            $this->team(),
+        $this->assignees = new UserCollection(
+            $this->client(),
             $array['assignees']
         );
 

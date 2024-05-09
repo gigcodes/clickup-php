@@ -13,9 +13,14 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class TaskFinder
 {
-    private Client $client;
-    private int $teamId;
-    private array $params = [];
+    /* @var Client $client */
+    private $client;
+
+    /* @var int $teamId */
+    private $teamId;
+
+    /* @var array $params */
+    private $params = [];
 
     /**
      * @param Client $client
@@ -53,7 +58,7 @@ class TaskFinder
     {
         return new TaskCollection(
             $this->client,
-            $this->client->get("team/$this->teamId/task", $this->params)['tasks'],
+            $this->client->get("team/{$this->teamId}/task", $this->params)['tasks'],
             $this->teamId
         );
     }

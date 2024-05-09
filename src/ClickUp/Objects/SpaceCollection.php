@@ -10,7 +10,7 @@ namespace ClickUp\Objects;
  */
 class SpaceCollection extends AbstractObjectCollection
 {
-    public function __construct(Team $team, array $array)
+    public function __construct(Team $team, $array)
     {
         parent::__construct($team->client(), $array);
         foreach ($this as $space) {

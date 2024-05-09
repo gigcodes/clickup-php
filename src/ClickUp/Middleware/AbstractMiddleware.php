@@ -5,25 +5,21 @@ namespace ClickUp\Middleware;
 use ClickUp\Client;
 
 /**
- * Class AbstractMiddleware
- *
- * This class provides a base middleware class that defines common properties for middleware components.
+ * Class AbstractMiddleware.
  */
 abstract class AbstractMiddleware
 {
     /**
-     * Client instance to be used by the middleware.
-     *
      * @var Client
      */
-    protected Client $client;
+    protected $client;
 
     /**
      * AbstractMiddleware constructor.
      *
-     * @param Client $client Client instance required by the middleware
+     * @param $client
      */
-    public function __construct(Client $client)
+    public function __construct($client)
     {
         $this->client = $client;
     }

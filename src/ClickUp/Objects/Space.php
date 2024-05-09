@@ -12,14 +12,29 @@ class Space extends AbstractObject
 {
     use TaskFinderTrait;
 
-    private int $id;
-    private string $name;
-    private bool $isPrivate;
-    private StatusCollection $statuses;
-    private array $clickApps = [];
-    private ?int $teamId = null;
-    private Team $team;
-    private ?FolderCollection $folders = null;
+    /* @var int $id */
+    private $id;
+
+    /* @var string $name */
+    private $name;
+
+    /* @var bool $isPrivate */
+    private $isPrivate;
+
+    /* @var StatusCollection $statuses */
+    private $statuses;
+
+    /* @var array $clickApps */
+    private $clickApps;
+
+    /* @var int|null $teamId */
+    private $teamId;
+
+    /* @var Team $team */
+    private $team;
+
+    /* @var FolderCollection|null $folders */
+    private $folders = null;
 
     /**
      * @return string
@@ -54,19 +69,21 @@ class Space extends AbstractObject
     }
 
     /**
-     * @param int $folderId
+     * @param $folderId
+     *
+     * @throws GuzzleException
      *
      * @return Folder
-     * @throws GuzzleException
      */
-    public function folder(int $folderId): Folder
+    public function folder($folderId): Folder
     {
         return $this->folders()->getByKey($folderId);
     }
 
     /**
-     * @return FolderCollection|null
      * @throws GuzzleException
+     *
+     * @return FolderCollection
      */
     public function folders(): ?FolderCollection
     {
@@ -91,7 +108,7 @@ class Space extends AbstractObject
     /**
      * @param Team $team
      */
-    public function setTeam(Team $team): void
+    public function setTeam(Team $team)
     {
         $this->team = $team;
     }
@@ -125,7 +142,7 @@ class Space extends AbstractObject
     /**
      * @param array $array
      */
-    protected function fromArray($array): void
+    protected function fromArray($array)
     {
         $this->id = $array['id'];
         $this->name = $array['name'];

@@ -4,27 +4,24 @@ namespace ClickUp\Middleware;
 
 use Exception;
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class AuthRequest
- *
- * Middleware class that handles adding the authorization header to requests.
+ * Class AuthRequest.
  */
 class AuthRequest extends AbstractMiddleware
 {
     /**
      * Invoke.
      *
-     * @param callable $handler The next handler in the middleware chain
+     * @param callable $handler
      *
-     * @return callable A handler function to handle the request and response
+     * @return callable
      */
-    public function __invoke(callable $handler): callable
+    public function __invoke(callable $handler)
     {
+        $self = $this;
 
-        return function (RequestInterface $request, array $options) use ($handler) {
-            $self = $this;
+        return function (RequestInterface $request, array $options) use ($self, $handler) {
             $accessToken = $self->client->getOptions()->getAccessToken();
 
             if ($accessToken === null) {

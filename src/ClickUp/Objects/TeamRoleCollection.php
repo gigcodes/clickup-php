@@ -14,9 +14,9 @@ class TeamRoleCollection extends AbstractObjectCollection
      * TeamRoleCollection constructor.
      *
      * @param Team $team
-     * @param array $array
+     * @param $array
      */
-    public function __construct(Team $team, array $array)
+    public function __construct(Team $team, $array)
     {
         parent::__construct($team->client(), $array);
         $this->setTeam($team);
@@ -25,7 +25,7 @@ class TeamRoleCollection extends AbstractObjectCollection
     /**
      * @param Team $team
      */
-    private function setTeam(Team $team): void
+    private function setTeam(Team $team)
     {
         foreach ($this as $teamRole) {
             $teamRole->setTeam($team);

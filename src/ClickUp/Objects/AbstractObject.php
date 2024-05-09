@@ -5,14 +5,20 @@ namespace ClickUp\Objects;
 use ClickUp\Client;
 
 /**
- * Class AbstractObject
+ * Class AbstractObject.
  */
 abstract class AbstractObject
 {
-    private Client $client;
+    /* @var Client $client */
+    private $client;
 
-    private array $extra;
-    
+    /* @var array $extra */
+    private $extra;
+
+    /**
+     * @param Client $client
+     * @param array  $array
+     */
     public function __construct(Client $client, array $array)
     {
         $this->setClient($client);
@@ -20,14 +26,14 @@ abstract class AbstractObject
         $this->setExtra($array);
     }
 
-    private function setClient(Client $client): void
+    private function setClient(Client $client)
     {
         $this->client = $client;
     }
 
     abstract protected function fromArray($array);
 
-    private function setExtra($array): void
+    private function setExtra($array)
     {
         $this->extra = $array;
     }
@@ -37,6 +43,9 @@ abstract class AbstractObject
         return $this->extra;
     }
 
+    /**
+     * @return Client
+     */
     protected function client(): Client
     {
         return $this->client;
