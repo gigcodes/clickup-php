@@ -4,7 +4,6 @@ namespace ClickUp\Objects;
 
 use ArrayIterator;
 use IteratorAggregate;
-use ReturnTypeWillChange;
 use RuntimeException;
 use Traversable;
 
@@ -14,7 +13,7 @@ use Traversable;
 abstract class AbstractObjectCollection extends AbstractObject implements IteratorAggregate
 {
     /* @var AbstractObject[] $objects */
-    protected $objects;
+    protected $objects = [];
 
     /**
      * @param string $id
@@ -58,7 +57,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     /**
      * @return ArrayIterator|Traversable
      */
-    #[ReturnTypeWillChange] public function getIterator(): Traversable|ArrayIterator
+    public function getIterator(): Traversable|ArrayIterator
     {
         return new ArrayIterator($this->objects());
     }
@@ -98,7 +97,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     /**
      * @param array $array
      */
-    protected function fromArray($array)
+    protected function fromArray($array): void
     {
         $class = $this->objectClass();
         foreach ($array as $value) {
